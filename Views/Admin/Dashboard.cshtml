@@ -1,0 +1,126 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12 text-center mb-4">
+            <h1 class="text-brown display-4">Panel de Administración</h1>
+            <p class="text-muted">Administra los productos, ventas y popularidad de los panes en un solo lugar.</p>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Acciones Rápidas -->
+        <div class="col-md-6 mb-4">
+            <div class="card bg-light border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-brown">Acciones Rápidas</h5>
+                    <div class="d-grid gap-3">
+                        <a asp-action="ProductosMasYMenosVendidos" class="btn btn-gradient-blue">Productos más y menos vendidos</a>
+                        <a asp-action="CompararPopularidad" class="btn btn-gradient-yellow">Comparar Popularidad</a>
+                        <a asp-action="ProductosPorRango" class="btn btn-gradient-red">Ventas por rango de fechas</a>
+                        <a asp-action="Index" asp-controller="Producto" class="btn btn-gradient-green">Gestión de Productos</a>
+                        <a asp-action="GestionInventario" asp-controller="Inventario" class="btn btn-gradient-purple">Gestión de Inventario</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ranking de Productos -->
+        <div class="col-md-6 mb-4">
+            <div class="card bg-light border-0 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-brown">Ranking de Productos</h5>
+                    <ul class="list-group">
+                        @if (ViewBag.RankingProductos != null)
+                        {
+                            foreach (var producto in ViewBag.RankingProductos)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>@producto.Producto</span>
+                                    <span class="badge bg-gradient-sales">@producto.TotalCantidad ventas</span>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="list-group-item text-center">No hay datos de ventas disponibles</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-brown {
+        color: #6B4423;
+    }
+
+    .btn-gradient-blue {
+        background: linear-gradient(90deg, #2193b0, #6dd5ed);
+        border: none;
+        color: white;
+    }
+
+    .btn-gradient-yellow {
+        background: linear-gradient(90deg, #f7b733, #fc4a1a);
+        border: none;
+        color: white;
+    }
+
+    .btn-gradient-red {
+        background: linear-gradient(90deg, #ff512f, #dd2476);
+        border: none;
+        color: white;
+    }
+
+    .btn-gradient-green {
+        background: linear-gradient(90deg, #56ab2f, #a8e063);
+        border: none;
+        color: white;
+    }
+
+    .btn-gradient-purple {
+        background: linear-gradient(90deg, #8e44ad, #3498db);
+        border: none;
+        color: white;
+    }
+
+        .btn-gradient-blue:hover,
+        .btn-gradient-yellow:hover,
+        .btn-gradient-red:hover,
+        .btn-gradient-green:hover,
+        .btn-gradient-purple:hover {
+            opacity: 0.9;
+        }
+
+    .bg-gradient-sales {
+        background: linear-gradient(90deg, #43cea2, #185a9d);
+        color: white;
+        padding: 0.4em 0.7em;
+        border-radius: 0.5em;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .list-group-item {
+        border: none;
+        font-size: 1.1rem;
+    }
+
+        .list-group-item .badge {
+            font-size: 0.9rem;
+        }
+
+    .card-title {
+        font-weight: bold;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+</style>

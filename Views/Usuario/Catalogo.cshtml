@@ -1,0 +1,107 @@
+﻿@model IEnumerable<PanaderiaCore.Models.Producto>
+
+@{
+    ViewData["Title"] = "Catálogo de Productos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1 class="text-brown display-4">Catálogo de Productos</h1>
+        </div>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">@TempData["Error"]</div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success text-center">@TempData["Success"]</div>
+    }
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="text-center">
+            <p class="text-muted">No hay productos disponibles en el catálogo.</p>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var producto in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body text-center">
+                            <h5 class="card-title text-brown">@producto.Nombre</h5>
+                            <p class="card-text text-muted">
+                                Precio: <span class="text-dark font-weight-bold">$@producto.Precio</span>
+                            </p>
+                            <p class="card-text">@producto.Descripcion</p>
+                            <a href="@Url.Action("Comprar", "Usuario", new { id = producto.Nombre })" class="btn btn-gradient-green">Comprar</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<style>
+    /* Estilo General */
+    body {
+        background-color: #FAF3E0;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .text-brown {
+        color: #6B4423;
+    }
+
+    .btn-gradient-green {
+        background: linear-gradient(90deg, #56ab2f, #a8e063);
+        border: none;
+        color: white;
+        padding: 0.5em 1.2em;
+        border-radius: 0.5em;
+        font-size: 1rem;
+    }
+
+        .btn-gradient-green:hover {
+            background: linear-gradient(90deg, #4e9a26, #98d652);
+            text-decoration: none;
+            color: white;
+        }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .alert {
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+</style>

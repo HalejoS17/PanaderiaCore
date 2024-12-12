@@ -1,0 +1,115 @@
+﻿@model PanaderiaCore.Models.Producto
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Comprar Producto";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1 class="display-4 text-brown">Comprar Producto</h1>
+            <p class="text-muted">Completa tu compra de manera rápida y segura.</p>
+        </div>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger text-center">@TempData["Error"]</div>
+    }
+
+    <div class="card mx-auto shadow-lg" style="max-width: 600px; border-radius: 15px; overflow: hidden;">
+        <div class="card-header bg-gradient-brown text-center text-white">
+            <h2>@Model.Nombre</h2>
+        </div>
+        <div class="card-body p-4">
+            <p class="text-muted text-center"><i class="fas fa-info-circle"></i> <strong>Descripción:</strong> @Model.Descripcion</p>
+            <p class="text-center"><i class="fas fa-tag"></i> <strong>Precio:</strong> <span class="text-success">$@Model.Precio</span></p>
+            <p class="text-center"><i class="fas fa-box"></i> <strong>Disponible:</strong> <span class="text-primary">@ViewBag.InventarioDisponible</span></p>
+            <hr />
+            <form asp-action="ConfirmarCompra" method="post">
+                <input type="hidden" name="ProductoNombre" value="@Model.Nombre" />
+                <div class="mb-3">
+                    <label for="Cantidad" class="form-label text-brown">Cantidad</label>
+                    <input type="number" id="Cantidad" name="Cantidad" class="form-control form-control-lg" min="1" max="@ViewBag.InventarioDisponible" required />
+                </div>
+                <button type="submit" class="btn btn-gradient-green w-100 py-3">Confirmar Compra</button>
+            </form>
+        </div>
+        <div class="card-footer text-center text-muted">
+            <small>Gracias por elegir PanaderíaCore</small>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* General */
+    body {
+        background: linear-gradient(180deg, #FFF4E6, #FFDAB9);
+        font-family: 'Arial', sans-serif;
+    }
+
+    .text-brown {
+        color: #6B4423;
+    }
+
+    .bg-gradient-brown {
+        background: linear-gradient(90deg, #8B4513, #D2691E);
+    }
+
+    .btn-gradient-green {
+        background: linear-gradient(90deg, #56ab2f, #a8e063);
+        border: none;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: bold;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+        .btn-gradient-green:hover {
+            transform: scale(1.02);
+            opacity: 0.9;
+        }
+
+    .form-control-lg {
+        border: 2px solid #D1C4E9;
+        border-radius: 10px;
+    }
+
+        .form-control-lg:focus {
+            border-color: #51cbee;
+            box-shadow: 0 0 5px rgba(81, 203, 238, 0.5);
+        }
+
+    .card {
+        background: white;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-header {
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 1rem 0;
+    }
+
+    .alert {
+        font-size: 1rem;
+        border-radius: 10px;
+    }
+
+    .text-muted {
+        font-size: 0.95rem;
+    }
+
+    .text-success {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .text-primary {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+</style>

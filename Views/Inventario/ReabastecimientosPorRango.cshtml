@@ -1,0 +1,46 @@
+﻿@model IEnumerable<PanaderiaCore.Controllers.ReabastecimientoViewModel>
+
+@{
+    ViewData["Title"] = "Reabastecimientos por Rango de Tiempo";
+}
+
+<h2>Reabastecimientos por Rango de Tiempo</h2>
+
+<form asp-action="ReabastecimientosPorRango" method="get">
+    <div class="form-group">
+        <label for="fechaInicio">Fecha Inicio</label>
+        <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required />
+    </div>
+    <div class="form-group">
+        <label for="fechaFin">Fecha Fin</label>
+        <input type="date" class="form-control" id="fechaFin" name="fechaFin" required />
+    </div>
+    <button type="submit" class="btn btn-primary">Consultar</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Producto</th>
+                <th>Veces Reabastecido</th>
+                <th>Total Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ProductoNombre</td>
+                    <td>@item.VecesReabastecido</td>
+                    <td>@item.TotalCantidad</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<div class="mt-3">
+    <a asp-action="GestionInventario" asp-controller="Inventario" class="btn btn-secondary">Volver a Gestión de Inventarios</a>
+</div>

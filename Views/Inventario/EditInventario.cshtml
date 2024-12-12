@@ -1,0 +1,36 @@
+﻿@model PanaderiaCore.Models.Inventario
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <h1 class="text-brown">Editar Inventario</h1>
+
+    <!-- Mostrar mensajes de error o éxito -->
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    <form asp-action="EditInventario" asp-controller="Inventario" method="post">
+        <div class="mb-3">
+            <label for="ProductoNombre" class="form-label">Producto</label>
+            <input type="text" class="form-control" id="ProductoNombre" name="ProductoNombre" value="@Model.ProductoNombre" readonly />
+        </div>
+        <div class="mb-3">
+            <label for="CantidadDisponible" class="form-label">Cantidad Disponible</label>
+            <input type="number" class="form-control" id="CantidadDisponible" name="CantidadDisponible" value="@Model.CantidadDisponible" required />
+        </div>
+        <button type="submit" class="btn btn-success">Guardar Cambios</button>
+        <a asp-action="GestionInventario" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>

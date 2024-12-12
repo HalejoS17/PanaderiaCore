@@ -1,0 +1,15 @@
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
+}
+
+<h1>Iniciar Sesión</h1>
+
+<form method="post" action="@Url.Action("Login", "Home")">
+    <label for="Email">Email:</label>
+    <input type="email" name="Email" required />
+    <br />
+    <label for="Contraseña">Contraseña:</label>
+    <input type="password" name="Contraseña" required />
+    <br />
+    <button type="submit">Iniciar Sesión</button>
+</form>

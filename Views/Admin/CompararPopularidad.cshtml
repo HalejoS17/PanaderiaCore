@@ -1,0 +1,127 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h1 class="text-brown display-4">Comparar Popularidad</h1>
+            <p class="text-muted">Selecciona un producto y descubre su popularidad en comparación con los demás.</p>
+        </div>
+    </div>
+    <div class="row my-4">
+        <div class="col-md-6 mx-auto">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-brown">Selecciona un producto</h5>
+                    <form asp-action="CompararPopularidad" method="get">
+                        <div class="input-group">
+                            <select class="form-select" name="productoNombre">
+                                @foreach (var producto in ViewBag.Productos)
+                                {
+                                    <option value="@producto.Nombre">@producto.Nombre</option>
+                                }
+                            </select>
+                            <button type="submit" class="btn btn-success">Comparar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="row my-4">
+            <div class="col-md-12 text-center">
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            </div>
+        </div>
+    }
+    else if (Model != null)
+    {
+        <div class="row my-4">
+            <div class="col-md-12 text-center">
+                <h2 class="text-brown">Resultados de la comparación</h2>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card border-success shadow-sm">
+                            <div class="card-header bg-success text-white">
+                                Producto Seleccionado
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">@Model.ProductoSeleccionado.Producto</h5>
+                                <p class="card-text">Cantidad de venta: <strong>@Model.ProductoSeleccionado.TotalCantidad</strong></p>
+                                <span class="badge bg-success">Popularidad: @Model.Ranking de @Model.TotalProductos</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card border-warning shadow-sm">
+                            <div class="card-header bg-warning text-dark">
+                                Comparación
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    Comparado con el producto <strong>@Model.MasVendido.Producto</strong>, el producto seleccionado es
+                                    <strong>@Model.PorcentajeVsMas %</strong> menos popular.
+                                </p>
+                                <p>
+                                    Comparado con el producto <strong>@Model.MenosVendido.Producto</strong>, el producto seleccionado es
+                                    <strong>@Model.PorcentajeVsMenos %</strong> más popular.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row my-5">
+        <div class="col-md-12 text-center">
+            <a asp-action="Dashboard" class="btn btn-secondary">Volver al Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #F5E8DC;
+        font-family: Arial, sans-serif;
+    }
+
+    .text-brown {
+        color: #6B4423;
+    }
+
+    .btn-success {
+        background: linear-gradient(to right, #28A745, #218838);
+        border: none;
+    }
+
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-header {
+        font-weight: bold;
+    }
+
+    .card-body p {
+        font-size: 1.1rem;
+    }
+
+    .form-select {
+        border-radius: 0.5rem 0 0 0.5rem;
+        border-color: #6B4423;
+    }
+
+    .input-group button {
+        border-radius: 0 0.5rem 0.5rem 0;
+    }
+</style>

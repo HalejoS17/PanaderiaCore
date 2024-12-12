@@ -1,0 +1,88 @@
+﻿@model PanaderiaCore.Models.RangoFechasViewModel
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12 text-center mb-4">
+            <h1 class="text-brown display-4">Ventas por Rango de Fechas</h1>
+            <p class="text-muted">Selecciona un rango de fechas para consultar los productos más y menos vendidos.</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <form method="get" asp-action="ProductosPorRango">
+                <div class="row g-3 align-items-center">
+                    <div class="col">
+                        <label for="fechaInicio" class="form-label text-brown">Fecha Inicio:</label>
+                        <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" value="@Model?.FechaInicio.ToString("yyyy-MM-dd")">
+                    </div>
+                    <div class="col">
+                        <label for="fechaFin" class="form-label text-brown">Fecha Fin:</label>
+                        <input type="date" class="form-control" id="fechaFin" name="fechaFin" value="@Model?.FechaFin.ToString("yyyy-MM-dd")">
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="btn btn-success mt-4">Consultar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger text-center">@ViewBag.Error</div>
+    }
+    else if (Model != null)
+    {
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-success text-white text-center">
+                        <h5>Producto Más Vendido</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <h6>Producto: <strong>@Model.MasVendido.Producto</strong></h6>
+                        <p>Cantidad Vendida: <strong>@Model.MasVendido.TotalCantidad</strong></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-danger text-white text-center">
+                        <h5>Producto Menos Vendido</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <h6>Producto: <strong>@Model.MenosVendido.Producto</strong></h6>
+                        <p>Cantidad Vendida: <strong>@Model.MenosVendido.TotalCantidad</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <div class="text-center mt-4">
+        <a asp-action="Dashboard" class="btn btn-secondary">Volver al Dashboard</a>
+    </div>
+</div>
+
+<style>
+    .text-brown {
+        color: #6B4423;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .btn-success {
+        background: linear-gradient(to right, #28a745, #218838);
+    }
+
+    .btn-secondary {
+        background: linear-gradient(to right, #6c757d, #5a6268);
+    }
+
+    .form-label {
+        font-weight: bold;
+    }
+</style>

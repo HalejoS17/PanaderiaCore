@@ -1,0 +1,95 @@
+﻿@model dynamic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12 text-center mb-4">
+            <h1 class="text-brown display-4">Productos Más y Menos Vendidos</h1>
+        </div>
+    </div>
+
+    @if (Model == null || Model.MasVendido == null || Model.MenosVendido == null)
+    {
+        <div class="alert alert-warning text-center">
+            No hay datos disponibles para mostrar.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <!-- Producto Más Vendido -->
+            <div class="col-md-6 mb-4">
+                <div class="card border-success shadow">
+                    <div class="card-header bg-success text-white text-center">
+                        <h5 class="mb-0">Producto Más Vendido</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Producto: <strong>@Model.MasVendido.Producto</strong></h5>
+                        <p class="card-text">Cantidad Vendida: <strong>@Model.MasVendido.TotalCantidad</strong></p>
+                        <div class="text-center">
+                            <span class="badge bg-success">Popular</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Producto Menos Vendido -->
+            <div class="col-md-6 mb-4">
+                <div class="card border-danger shadow">
+                    <div class="card-header bg-danger text-white text-center">
+                        <h5 class="mb-0">Producto Menos Vendido</h5>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Producto: <strong>@Model.MenosVendido.Producto</strong></h5>
+                        <p class="card-text">Cantidad Vendida: <strong>@Model.MenosVendido.TotalCantidad</strong></p>
+                        <div class="text-center">
+                            <span class="badge bg-danger">Mejorable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row mt-4">
+        <div class="col-md-12 text-center">
+            <a asp-action="Dashboard" class="btn btn-secondary">Volver al Dashboard</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-brown {
+        color: #6B4423;
+    }
+
+    .btn-secondary {
+        background-color: #6C757D;
+        border-color: #6C757D;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5A6268;
+            border-color: #545B62;
+        }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .card-title {
+        font-weight: bold;
+    }
+
+    .card-body {
+        font-size: 1.1rem;
+    }
+
+    .badge {
+        font-size: 1rem;
+        padding: 0.5em 1em;
+    }
+</style>
